@@ -1,0 +1,27 @@
+<!-- nav -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" *ngIf="user">
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="navbar-brand">EagleSaloon</a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav">
+      <a routerLink="/users" class="nav-item nav-link ">User</a>
+      <a routerLink="/appointments" class="nav-item nav-link ">Appointment</a>
+      <a routerLink="/services" class="nav-item nav-link ">Services</a>
+      <!--<a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>-->
+    </div>
+    <div class="navbar-nav ml-auto">
+      <a class="nav-item nav-link" routerLink="/changepassword" routerLinkActive="active">Change Password</a>
+      <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- main app container -->
+<div class="app-container" [ngClass]="{ 'bg-light': user}">
+ 
+  <router-outlet></router-outlet>
+</div>

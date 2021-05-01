@@ -1,0 +1,112 @@
+
+<div class="d-flex">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" (navChange)="onNavChange($event)" class="nav-pills" orientation="vertical">
+      <li ngbNavItem="Primary">
+        <a ngbNavLink >Primary</a>
+        <ng-template ngbNavContent>
+      
+                <div class="form-row">
+                    <div class="form-group col">
+                  <label for="name">Name</label>
+                  <input type="text" name="name" class="form-control"  id="name"  placeholder="Enter Name" [(ngModel)]="name" [style.border-color]="validateFlag && !name ? 'red':''">
+                  <div class="invalid-field" *ngIf="validateFlag && !name">
+                    Please enter name
+                  </div>
+                </div>
+                <div class="form-group col">
+                    <label for="dateTime">DateTime</label>
+                    <input type="datetime-local"  name="dateTime" class="form-control" id="dateTime"  placeholder="Enter DateTime" [(ngModel)]="dateTime" [style.border-color]="validateFlag && !dateTime ? 'red':''">                
+                    <div class="invalid-field" *ngIf="validateFlag && !dateTime">
+                      Please enter dateTime
+                    </div>
+                  </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">                
+                    <label for="mobileNo">MobileNo</label>
+                    <input type="text" class="form-control" id="mobileNo" name="mobileNo" [(ngModel)]="mobileNo" placeholder="Enter MobileNo" [style.border-color]="validateFlag && !mobileNo ? 'red':''">
+                    <div class="invalid-field" *ngIf="validateFlag && !mobileNo">
+                      Please enter MobileNo
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="gender">Gender</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="Male" value="Male" [(ngModel)]="gender">
+                        <label class="form-check-label" for="Male">
+                          Male
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="Female" value="Female" [(ngModel)]="gender" >
+                        <label class="form-check-label" for="Female">
+                            Female
+                        </label>
+                      </div>
+                      <div class="invalid-field" *ngIf="validateFlag && !gender">
+                        Please enter Gender
+                      </div>
+                </div>
+                </div>
+           
+                <button class="btn btn-primary"  (click)="validate(nav);">Next</button>
+         
+        </ng-template>
+      </li>
+      <li ngbNavItem="services" >
+        <button class="btn btn-defult normal-btn float-left" ngbNavLink (click)="validate(nav)">Services</button>
+        <ng-template ngbNavContent>
+          <div class="form-row">
+           <div class="form-group col">
+              <label for="services">Services</label>
+              <div class="form-group"  >
+ <ng-multiselect-dropdown
+  [placeholder]="'Services placeholder'"
+  [settings]="dropdownSettings"
+  [data]="users" 
+  [(ngModel)]="services"
+  (onSelect)="onItemSelect($event)"
+  (onDeSelect)="onItemDeSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+  (onDeSelectAll)="onDeSelectAll($event)">
+</ng-multiselect-dropdown>
+                <!-- <div class="form-check form-check-inline"  *ngFor="let item of users">
+                  <input class="form-check-input " type="checkbox" [(ngModel)]="services"  (change)="onChange($event)" [value]="item.serviceId" >
+                  <label class="form-check-label ">{{item.serviceName}}</label>
+                </div> -->
+            </div>
+          </div>
+          <div class="form-group col">
+            <label for="status">
+              Status
+            </label>
+            <div class="form-group">
+            <select class="form-select form-select-lg mb-3"  [(ngModel)]="status" >
+              <option selected disabled value="">Status</option>
+              <option value="Yes" >Yes</option>
+              <option value="No">No</option>     
+            </select>
+            <div class="invalid-field" *ngIf="validateFlag && !status">
+              Please enter status
+            </div>
+          </div>
+          </div>
+          </div>
+          <button class="btn btn-primary normal-btn float-left" (click)="backManage()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Back
+          </button>
+          <button class="btn btn-primary normal-btn float-right" (click)="onSubmit()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+          </button>
+
+        </ng-template>
+      </li>
+  
+    </ul>
+  
+    <div [ngbNavOutlet]="nav" class="ml-4"></div>
+  </div>
+
+  {{emailFormArray | json}}

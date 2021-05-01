@@ -1,0 +1,65 @@
+<h1>Appointments</h1>
+<div>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Apointment</a>
+
+</div>
+<a routerLink="tab" class="btn btn-sm btn-success mb-2">Add Tab</a>
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-4">
+  <input class="form-control-sm" type="search" name="search"  [(ngModel)]="Search"  autocomplete="off" placeholder="Search..."/>
+  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" [(ngModel)]="columnname">
+  <option selected disabled>Column Name</option>
+  <option value="Name">Name</option>
+  <option value="MobileNo">MobileNo</option>
+</select>
+<button type="button" class="btn btn-primary" (click)="searchByName()">Search</button>
+</div>
+</div>
+</div>
+<div class="form-group">
+  
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th style="width: 20%">Name</th>
+      <th style="width: 20%">MobileNo</th>
+      <th style="width: 25%">Gender</th>
+      <th style="width: 25%">DateTime</th>
+      <th style="width: 25%">Status</th>
+      <th style="width: 25%">services</th>
+      <th style="width: 10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | paginate : {itemsPerPage: pageSize,currentPage: page,totalItems: count };let i = index"[class.active]="i == currentIndex">
+      <td>{{user.name}}</td>
+      <td>{{user.mobileNo}}</td>
+      <td>{{user.gender}}</td>
+      <td>{{user.dateTime}}</td>
+      <td>{{user.status}}</td>
+      <td><a routerLink="servicelist/{{user.appointmentId}}"><i  class="fa fa-eye" style="font-size:20px;color:#007bff;"></i></a></td>
+      <td style="white-space: nowrap">
+        <a routerLink="edit/{{user.appointmentId}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+        <button (click)="deleteUser(user.appointmentId)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
+          <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+          <span *ngIf="!user.isDeleting">Delete</span>
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="!users">
+      <td colspan="4" class="text-center">
+        <span class="spinner-border spinner-border-lg align-center"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="col-md-12">
+  <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    responsive="true"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>
